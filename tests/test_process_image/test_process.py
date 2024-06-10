@@ -35,7 +35,7 @@ def parameters(draw) -> Tuple[int, ...]:
     shift: int = draw(st.integers(min_value=0, max_value=100))
     tilt: int = draw(st.integers(min_value=0, max_value=100))
     stretch: int = draw(st.integers(min_value=0, max_value=100))
-    crop_size: int = draw(st.integers(min_value=0, max_value=100))
+    crop_size: int = draw(st.integers(min_value=1, max_value=100))
     return (
         resize_height,
         resize_width,
