@@ -1,23 +1,42 @@
 from PIL import Image
 import imgaug.augmenters as iaa
 import numpy as np
-from typing import List, Union
+from typing import List
 
 
 def process_images(
     images: List[Image.Image],
-    resize_height: Union[int, float],
-    resize_width: Union[int, float],
-    rotation_angle: Union[int, float],
-    brightness: Union[int, float],
-    contrast: Union[int, float],
-    saturation: Union[int, float],
-    noise: Union[int, float],
-    shift: Union[int, float],
-    tilt: Union[int, float],
-    stretch: Union[int, float],
-    crop_size: Union[int, float],
+    resize_height: int,
+    resize_width: int,
+    rotation_angle: int,
+    brightness: int,
+    contrast: int,
+    saturation: int,
+    noise: int,
+    shift: int,
+    tilt: int,
+    stretch: int,
+    crop_size: int,
 ) -> List[Image.Image]:
+    """Apply a series of image processing operations to a list of images.
+
+    Args:
+        images (List[Image.Image]): A list of PIL Image objects to be processed.
+        resize_height (int): Desired height for resizing.
+        resize_width (int): Desired width for resizing.
+        rotation_angle (int): Angle for rotation in degrees.
+        brightness (int): Adjustment factor for brightness.
+        contrast (int): Adjustment factor for contrast.
+        saturation (int): Adjustment factor for saturation.
+        noise (int): Level of Gaussian noise to be added.
+        shift (int): Percentage of shift along x and y axes.
+        tilt (int): Shear angle for tilt.
+        stretch (int): Percentage of stretching.
+        crop_size (int): Percentage of cropping.
+
+    Returns:
+        List[Image.Image]: A list of processed PIL Image objects.
+    """
     processed_images = []
     for img in images:
         if img.mode == 'RGBA':

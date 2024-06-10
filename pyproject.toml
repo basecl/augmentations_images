@@ -13,6 +13,8 @@ dependencies = [
     "imgaug>=0.4.0",
     "streamlit>=1.35.0",
     "pre-commit>=3.7.1",
+    "hypothesis>=6.103.1",
+    "pytest>=8.2.2",
 ]
 requires-python = ">=3.11"
 readme = "README.md"

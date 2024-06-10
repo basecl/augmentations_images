@@ -1,7 +1,27 @@
 import streamlit as st
 
 
-def render_sidebar():
+def render_sidebar() -> (
+    tuple[str, str, int, int, int, int, int, int, int, int, int, int, int]
+):
+    """Render the sidebar with parameters for image transformation.
+
+    Returns:
+        Tuple[str, str, int, int, int, int, int, int, int, int, int, int, int]: A tuple containing:
+            - str: The folder path containing the images.
+            - str: The output path for saving the transformed images.
+            - int: The height for resizing the images.
+            - int: The width for resizing the images.
+            - int: The rotation angle for the images.
+            - int: The brightness adjustment level.
+            - int: The contrast adjustment level.
+            - int: The saturation adjustment level.
+            - int: The noise level.
+            - int: The shift level.
+            - int: The tilt level.
+            - int: The stretch level.
+            - int: The crop size for random cropping.
+    """
     st.sidebar.header('Параметры преобразования')
     folder_path = st.sidebar.text_input(
         'Введите путь к директории с изображениями', key='folder_path_input'
