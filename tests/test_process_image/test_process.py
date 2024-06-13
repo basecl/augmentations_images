@@ -52,7 +52,7 @@ def parameters(draw) -> Tuple[int, ...]:
 
 
 @given(images=st.lists(images(), max_size=1), parameters=parameters())
-def test_process_images(images: List[Image.Image], parameters: Tuple[Union[int, float], ...]) -> None:
+def test_process_images(images: List[Image.Image], parameters: Tuple[Union[float], ...]) -> None:
     (
         resize_height,
         resize_width,
