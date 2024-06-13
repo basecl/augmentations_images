@@ -3,7 +3,7 @@ import numpy as np
 import hypothesis.strategies as st
 from hypothesis import given
 from image_processing.process import process_images
-from typing import List, Tuple, Any
+from typing import List, Tuple, Any, Union
 
 
 @st.composite
@@ -52,7 +52,7 @@ def parameters(draw) -> Tuple[int, ...]:
 
 
 @given(images=st.lists(images(), max_size=1), parameters=parameters())
-def test_process_images(images: List[Image.Image], parameters: Tuple[int, ...]) -> None:
+def test_process_images(images: List[Image.Image], parameters: Tuple[Union[int, float], ...]) -> None:
     (
         resize_height,
         resize_width,

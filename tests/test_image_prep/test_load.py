@@ -19,7 +19,7 @@ def test_load_images_with_valid_folder_path():
     """
     Test loading images with a valid folder path.
     """
-    folder_path = '/home/ilya/Projects/augmentations_images/tests/test_image_prep'
+    folder_path = './'
     test_image = Image.new('RGB', (100, 100))
     test_image.save(os.path.join(folder_path, 'test_image.jpg'))
 
