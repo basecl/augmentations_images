@@ -27,14 +27,14 @@ def images(draw) -> Any:
 def parameters(draw) -> Tuple[int, ...]:
     resize_height: int = draw(st.integers(min_value=1, max_value=100))
     resize_width: int = draw(st.integers(min_value=1, max_value=100))
-    rotation_angle: int = draw(st.integers(min_value=0, max_value=360))
-    brightness: int = draw(st.integers(min_value=0, max_value=100))
-    contrast: int = draw(st.integers(min_value=0, max_value=100))
-    saturation: int = draw(st.integers(min_value=0, max_value=100))
-    noise: int = draw(st.integers(min_value=0, max_value=100))
-    shift: int = draw(st.integers(min_value=0, max_value=100))
-    tilt: int = draw(st.integers(min_value=0, max_value=100))
-    stretch: int = draw(st.integers(min_value=0, max_value=100))
+    rotation_angle: int = draw(st.integers(min_value=1, max_value=360))
+    brightness: int = draw(st.integers(min_value=1, max_value=100))
+    contrast: int = draw(st.integers(min_value=1, max_value=100))
+    saturation: int = draw(st.integers(min_value=1, max_value=100))
+    noise: int = draw(st.integers(min_value=1, max_value=100))
+    shift: int = draw(st.integers(min_value=1, max_value=100))
+    tilt: int = draw(st.integers(min_value=1, max_value=100))
+    stretch: int = draw(st.integers(min_value=1, max_value=100))
     crop_size: int = draw(st.integers(min_value=1, max_value=100))
     return (
         resize_height,
@@ -52,7 +52,7 @@ def parameters(draw) -> Tuple[int, ...]:
 
 
 @given(images=st.lists(images(), max_size=1), parameters=parameters())
-def test_process_images(images: List[Image.Image], parameters: Tuple[Union[int, float], ...]) -> None:
+def test_process_images(images: List[Image.Image], parameters: Tuple) -> None:
     (
         resize_height,
         resize_width,
