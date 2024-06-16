@@ -15,6 +15,7 @@ dependencies = [
     "pre-commit>=3.7.1",
     "hypothesis>=6.103.1",
     "pytest>=8.2.2",
+    "ruff>=0.4.8",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
