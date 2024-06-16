@@ -3,7 +3,7 @@ import numpy as np
 import hypothesis.strategies as st
 from hypothesis import given
 from image_processing.process import process_images
-from typing import List, Tuple, Any, Union
+from typing import List, Tuple, Any
 
 
 @st.composite
@@ -24,7 +24,7 @@ def images(draw) -> Any:
 
 
 @st.composite
-def parameters(draw) -> Tuple[int, ...]:
+def parameters(draw) -> Tuple:
     resize_height: int = draw(st.integers(min_value=1, max_value=100))
     resize_width: int = draw(st.integers(min_value=1, max_value=100))
     rotation_angle: int = draw(st.integers(min_value=1, max_value=360))

@@ -1,4 +1,5 @@
 import os
+import hypothesis.strategies as st
 from PIL import Image
 
 
@@ -21,5 +22,11 @@ def load_images(folder_path: str) -> tuple[list[Image.Image], list[str]]:
         for img in image_names
         if img.endswith(('.jpg', '.jpeg', '.png', '.bmp', '.gif'))
     ]
-    images = [Image.open(os.path.join(folder_path, img)) for img in image_files]
+    try:
+        images = [Image.open(os.path.join(folder_path, img)) for img in image_files]
+    except:  # noqa: E722
+        st.error(
+            'Указанный путь к директории с изображениями не существует. Пожалуйста, проверьте путь.'
+        )
+        return [], []
     return images, image_files
