@@ -1,7 +1,7 @@
 from PIL import Image
-import imgaug.augmenters as iaa
 import numpy as np
 from typing import List
+import albumentations as A
 
 
 def process_images(
@@ -38,31 +38,38 @@ def process_images(
         List[Image.Image]: A list of processed PIL Image objects.
     """
     processed_images = []
+    transform = A.Compose(
+        [
+            A.Resize(height=resize_height, width=resize_width),
+            A.Rotate(limit=rotation_angle, p=1.0),
+            A.RandomBrightnessContrast(
+                brightness_limit=brightness / 100.0,
+                contrast_limit=contrast / 100.0,
+                p=1.0,
+            ),
+            A.HueSaturationValue(
+                hue_shift_limit=0,
+                sat_shift_limit=(saturation - 50) * 2,
+                val_shift_limit=0,
+                p=1.0,
+            ),
+            A.GaussNoise(var_limit=(0, noise * 255), p=1.0),
+            A.ShiftScaleRotate(
+                shift_limit=shift / 100.0, scale_limit=0, rotate_limit=0, p=1.0
+            ),
+            A.Affine(shear=tilt, p=1.0),
+            A.Affine(scale=(1 - stretch / 100.0, 1 + stretch / 100.0), p=1.0),
+            A.RandomCrop(height=int(crop_size), width=int(crop_size), p=1.0),
+        ]
+    )
+
     for img in images:
         if img.mode == 'RGBA':
             img = img.convert('RGB')
         img_np = np.array(img)
-        new_size = (int(resize_height), int(resize_width))
-        aug = iaa.Sequential(
-            [
-                iaa.Resize({'height': new_size[1], 'width': new_size[0]}),
-                iaa.Rotate(rotation_angle),
-                iaa.MultiplyBrightness(brightness / 50.0),
-                iaa.contrast.LinearContrast(contrast / 50.0),
-                iaa.AddToHueAndSaturation((saturation - 50) * 2),
-                iaa.AdditiveGaussianNoise(scale=(0, noise * 255)),
-                iaa.Affine(translate_percent={'x': shift / 100, 'y': shift / 100}),
-                iaa.Affine(shear=tilt),
-                iaa.Affine(
-                    scale={
-                        'x': (1 - stretch / 100, 1 + stretch / 100),
-                        'y': (1 - stretch / 100, 1 + stretch / 100),
-                    }
-                ),
-                iaa.Crop(percent=(0, crop_size / 100)),
-            ]
-        )
-        img_np = aug(image=img_np)
-        processed_img = Image.fromarray(img_np)
+        img_np = img_np.astype(np.uint8)
+        transformed = transform(image=img_np)
+        processed_img = Image.fromarray(transformed['image'])
         processed_images.append(processed_img)
+
     return processed_images

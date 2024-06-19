@@ -30,10 +30,10 @@ def render_sidebar() -> (
         'Введите путь к директории для сохранения изображений', key='output_path_input'
     )
     resize_height = st.sidebar.number_input(
-        'Выберите высоту для изменения размера изображения', 1, 10000, 500
+        'Выберите высоту для изменения размера изображения', 1, 10000, 512
     )
     resize_width = st.sidebar.number_input(
-        'Выберите ширину для изменения размера изображения', 1, 10000, 500
+        'Выберите ширину для изменения размера изображения', 1, 10000, 512
     )
     rotation_angle = st.sidebar.slider(
         'Выберите угол поворота для изображения', 0, 360, 0
@@ -60,7 +60,7 @@ def render_sidebar() -> (
         'Выберите уровень растяжения', min_value=0, max_value=100, value=0
     )
     crop_size = st.sidebar.number_input(
-        'Выберите размер случайного выреза', min_value=0, max_value=100, value=0
+        'Выберите размер случайного выреза', min_value=1, max_value=10000, value=512
     )
     return (
         folder_path,

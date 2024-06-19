@@ -10,12 +10,14 @@ dependencies = [
     "numpy>=1.26.4",
     "pillow>=10.3.0",
     "matplotlib>=3.9.0",
-    "imgaug>=0.4.0",
     "streamlit>=1.35.0",
     "pre-commit>=3.7.1",
     "hypothesis>=6.103.1",
     "pytest>=8.2.2",
     "ruff>=0.4.8",
+    "albumentations>=1.4.8",
+    "opencv-python>=4.10.0.84",
+    "torch>=2.3.1",
 ]
 requires-python = ">=3.11"
 readme = "README.md"
